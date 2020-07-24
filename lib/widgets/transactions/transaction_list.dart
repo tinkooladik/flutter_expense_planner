@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/transaction.dart';
+import '../../models/transaction.dart';
 
-class TransactionList extends StatefulWidget {
-  @override
-  _TransactionListState createState() => _TransactionListState();
-}
 
-class _TransactionListState extends State<TransactionList> {
-  final List<Transaction> _transactions = generateTransactions();
+class TransactionList extends StatelessWidget {
+
+  final List<Transaction> transactions;
+
+  TransactionList({this.transactions});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: _transactions.map((t) {
-        return TransactionItem(transaction: t);
+      children: transactions.map((t) {
+        return _TransactionItem(transaction: t);
       }).toList(),
     );
   }
 }
 
-class TransactionItem extends StatelessWidget {
+class _TransactionItem extends StatelessWidget {
   final Transaction transaction;
 
-  TransactionItem({this.transaction});
+  _TransactionItem({this.transaction});
 
   @override
   Widget build(BuildContext context) {

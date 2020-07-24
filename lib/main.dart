@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_planner/widgets/transactions/block_transactions.dart';
 
-import 'models/transaction.dart';
 import 'widgets/chart.dart';
-import 'widgets/inputs_block.dart';
-import 'widgets/transaction_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,10 +34,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final List<Transaction> transactions = generateTransactions();
-
-  final titleInput = TextEditingController();
-  String amountInput;
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +43,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           Chart(),
           Divider(thickness: 1),
-          InputsBlock(
-            titleController: titleInput,
-            onAmountChange: (s) => amountInput = s,
-            onButtonClick: () {
-              Scaffold.of(context).showSnackBar(SnackBar(
-                content:
-                    Text("title: ${titleInput.text}, amount: $amountInput"),
-              ));
-            },
-          ),
-          Divider(thickness: 1),
-          TransactionList(),
+          TransactionsBlock(),
         ],
       ),
     );

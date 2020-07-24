@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class InputsBlock extends StatelessWidget {
-  final TextEditingController titleController;
-  final Function(String) onAmountChange;
-  final Function onButtonClick;
+class AddTransaction extends StatelessWidget {
+  final Function(String, double) onAddTransactionClick;
 
-  InputsBlock({this.titleController, this.onAmountChange, this.onButtonClick});
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+
+  AddTransaction({this.onAddTransactionClick});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +23,13 @@ class InputsBlock extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: "Title",
                 ),
-                controller: titleController,
+                controller: _titleController,
               ),
               TextField(
                 decoration: InputDecoration(
                   labelText: "Amount",
                 ),
-                onChanged: onAmountChange,
+                controller: _amountController,
               ),
               Container(
                 alignment: Alignment.centerRight,
@@ -37,7 +38,12 @@ class InputsBlock extends StatelessWidget {
                   color: Colors.green,
                   textColor: Colors.limeAccent,
                   child: Text("Add transaction"),
-                  onPressed: onButtonClick,
+                  onPressed: () {
+                    onAddTransactionClick(
+                      _titleController.text,
+                      double.parse(_amountController.text),
+                    );
+                  },
                 ),
               ),
             ],
