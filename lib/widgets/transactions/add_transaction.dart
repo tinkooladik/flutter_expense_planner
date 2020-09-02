@@ -16,7 +16,10 @@ class AddTransaction extends StatelessWidget {
       ),
       child: Card(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          margin: EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 10,
+          ),
           child: Column(
             children: <Widget>[
               TextField(
@@ -24,12 +27,17 @@ class AddTransaction extends StatelessWidget {
                   labelText: "Title",
                 ),
                 controller: _titleController,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
               TextField(
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
                   labelText: "Amount",
                 ),
                 controller: _amountController,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (_) => submitData,
               ),
               Container(
                 alignment: Alignment.centerRight,
@@ -38,18 +46,20 @@ class AddTransaction extends StatelessWidget {
                   color: Colors.green,
                   textColor: Colors.limeAccent,
                   child: Text("Add transaction"),
-                  onPressed: () {
-                    onAddTransactionClick(
-                      _titleController.text,
-                      double.parse(_amountController.text),
-                    );
-                  },
+                  onPressed: submitData,
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void submitData() {
+    onAddTransactionClick(
+      _titleController.text,
+      double.parse(_amountController.text),
     );
   }
 }

@@ -3,19 +3,21 @@ import 'package:intl/intl.dart';
 
 import '../../models/transaction.dart';
 
-
 class TransactionList extends StatelessWidget {
-
   final List<Transaction> transactions;
 
   TransactionList({this.transactions});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((t) {
-        return _TransactionItem(transaction: t);
-      }).toList(),
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) => _TransactionItem(
+          transaction: transactions[index],
+        ),
+      ),
     );
   }
 }
