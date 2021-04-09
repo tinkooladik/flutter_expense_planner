@@ -46,7 +46,7 @@ class AddTransaction extends StatelessWidget {
                   color: Colors.green,
                   textColor: Colors.limeAccent,
                   child: Text("Add transaction"),
-                  onPressed: submitData,
+                  onPressed: () => submitData(context),
                 ),
               ),
             ],
@@ -56,10 +56,18 @@ class AddTransaction extends StatelessWidget {
     );
   }
 
-  void submitData() {
+  void submitData(BuildContext context) {
+    final title = _titleController.text;
+    final amount = double.parse(_amountController.text);
+
+    if(title.isEmpty || amount <= 0) {
+      return;
+    }
+
+    FocusScope.of(context).unfocus();
     onAddTransactionClick(
-      _titleController.text,
-      double.parse(_amountController.text),
+      title,
+      amount,
     );
   }
 }
