@@ -48,7 +48,7 @@ class _TransactionItem extends StatelessWidget {
                 transaction.amount.toStringAsFixed(2),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),

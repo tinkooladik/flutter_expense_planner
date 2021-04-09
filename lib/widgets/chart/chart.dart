@@ -39,17 +39,21 @@ class Chart extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Card(
-        color: Colors.greenAccent,
+        color: Theme.of(context).primaryColorLight,
         elevation: 6,
         margin: EdgeInsets.all(20),
-        child: Row(
-          children: _groupedTransactions.map((tr) {
-            return ChartBar(
-              tr['day'],
-              tr['amount'],
-              (tr['amount'] as double) / _totalSpending,
-            );
-          }).toList(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: _groupedTransactions.map((tr) {
+              return ChartBar(
+                tr['day'],
+                tr['amount'],
+                (tr['amount'] as double) / _totalSpending,
+              );
+            }).toList(),
+          ),
         ),
       ),
     );

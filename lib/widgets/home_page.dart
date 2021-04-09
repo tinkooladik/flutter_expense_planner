@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = generateTransactions();
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
