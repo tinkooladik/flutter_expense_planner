@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AddTransaction extends StatelessWidget {
+class AddTransaction extends StatefulWidget {
   final Function(String, double) onAddTransactionClick;
 
+  AddTransaction({this.onAddTransactionClick});
+
+  @override
+  _AddTransactionState createState() => _AddTransactionState();
+}
+
+class _AddTransactionState extends State<AddTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
-
-  AddTransaction({this.onAddTransactionClick});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class AddTransaction extends StatelessWidget {
                 ),
                 controller: _amountController,
                 textInputAction: TextInputAction.done,
-                onSubmitted: (_) => submitData,
+                onSubmitted: (_) => _submitData,
               ),
               Container(
                 alignment: Alignment.centerRight,
@@ -46,7 +51,7 @@ class AddTransaction extends StatelessWidget {
                   color: Colors.green,
                   textColor: Colors.limeAccent,
                   child: Text("Add transaction"),
-                  onPressed: () => submitData(context),
+                  onPressed: _submitData,
                 ),
               ),
             ],
@@ -56,7 +61,7 @@ class AddTransaction extends StatelessWidget {
     );
   }
 
-  void submitData(BuildContext context) {
+  void _submitData() {
     final title = _titleController.text;
     final amount = double.parse(_amountController.text);
 
@@ -64,10 +69,11 @@ class AddTransaction extends StatelessWidget {
       return;
     }
 
-    FocusScope.of(context).unfocus();
-    onAddTransactionClick(
+    widget.onAddTransactionClick(
       title,
       amount,
     );
+
+    Navigator.of(context).pop();
   }
 }

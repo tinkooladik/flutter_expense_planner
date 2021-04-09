@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_planner/widgets/transactions/block_transactions.dart';
-
-import 'widgets/chart.dart';
+import 'package:flutter_expense_planner/widgets/home_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,34 +15,11 @@ class MyApp extends StatelessWidget {
         }
       },
       child: MaterialApp(
-        title: "Expense planner",
-        theme: ThemeData(
-          primarySwatch: Colors.amber,
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text("Home page"),
+          title: "Expense planner",
+          theme: ThemeData(
+            primarySwatch: Colors.amber,
           ),
-          resizeToAvoidBottomPadding: true,
-          body: HomePage(),
-        ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Chart(),
-        Divider(thickness: 1),
-        Expanded(
-          child: TransactionsBlock(),
-        ),
-      ],
+          home: HomePage()),
     );
   }
 }
