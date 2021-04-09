@@ -6,13 +6,12 @@ import 'transactions/add_transaction.dart';
 import 'transactions/transaction_list.dart';
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Transaction> _transactions = generateTransactions();
+  final List<Transaction> _transactions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +32,9 @@ class _HomePageState extends State<HomePage> {
           Chart(),
           Divider(thickness: 1),
           Expanded(
-              child: TransactionList(
-                transactions: _transactions,
-              ),
+            child: TransactionList(
+              transactions: _transactions,
+            ),
           ),
         ],
       ),
@@ -47,11 +46,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showAddTransaction(BuildContext ctx) {
-    showModalBottomSheet(context: ctx, builder: (builderContext) {
-      return AddTransaction(
-        onAddTransactionClick: _addTransaction,
-      );
-    });
+    showModalBottomSheet(
+        context: ctx,
+        builder: (builderContext) {
+          return AddTransaction(
+            onAddTransactionClick: _addTransaction,
+          );
+        });
   }
 
   void _addTransaction(String title, double amount) {

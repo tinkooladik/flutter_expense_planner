@@ -48,8 +48,8 @@ class _AddTransactionState extends State<AddTransaction> {
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.only(top: 16),
                 child: FlatButton(
-                  color: Colors.green,
-                  textColor: Colors.limeAccent,
+                  color: Theme.of(context).accentColor,
+                  textColor: Colors.white,
                   child: Text("Add transaction"),
                   onPressed: _submitData,
                 ),
