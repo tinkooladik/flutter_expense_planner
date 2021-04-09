@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_planner/models/transaction.dart';
 
-import 'chart.dart';
+import 'chart/chart.dart';
 import 'transactions/add_transaction.dart';
+import 'transactions/empty_state.dart';
 import 'transactions/transaction_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +37,20 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       resizeToAvoidBottomInset: true,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Chart(),
-          Divider(thickness: 1),
-          Expanded(
-            child: TransactionList(
-              transactions: _transactions,
+      body: _transactions.isEmpty
+          ? EmptyTransactions()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Chart(_recentTransactions),
+                Divider(thickness: 1),
+                Expanded(
+                  child: TransactionList(
+                    transactions: _transactions,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _showAddTransaction(context),
