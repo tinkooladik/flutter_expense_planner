@@ -62,10 +62,10 @@ class _TransactionItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     transaction.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: Theme.of(context).textTheme.title.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 4),
