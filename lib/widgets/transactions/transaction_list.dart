@@ -39,16 +39,16 @@ class _TransactionItem extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Colors.purple,
+                  color: Theme.of(context).primaryColorLight,
                   width: 2,
                 ),
-                color: Colors.limeAccent,
+                color: Theme.of(context).secondaryHeaderColor,
               ),
               child: Text(
                 transaction.amount.toStringAsFixed(2),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.purple,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
@@ -64,7 +64,7 @@ class _TransactionItem extends StatelessWidget {
                     transaction.title,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
+                      color: Colors.black87,
                     ),
                   ),
                   Container(
@@ -72,7 +72,7 @@ class _TransactionItem extends StatelessWidget {
                     child: Text(
                       DateFormat.yMMMMEEEEd().add_jm().format(transaction.date),
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Theme.of(context).hintColor,
                         fontSize: 11,
                       ),
                     ),

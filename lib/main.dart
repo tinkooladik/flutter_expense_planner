@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           title: "Expense planner",
           theme: ThemeData(
             primarySwatch: Colors.amber,
+            accentColor: Colors.purple,
           ),
           home: HomePage()),
     );
