@@ -17,11 +17,13 @@ class _TransactionsBlockState extends State<TransactionsBlock> {
     return Column(
       children: <Widget>[
         AddTransaction(
-          onAddTransactionClick:  _addTransaction,
+          onAddTransactionClick: _addTransaction,
         ),
         Divider(thickness: 1),
-        TransactionList(
-          transactions: _transactions,
+        Expanded(
+          child: TransactionList(
+            transactions: _transactions,
+          ),
         ),
       ],
     );

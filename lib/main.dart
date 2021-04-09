@@ -34,18 +34,17 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Chart(),
-          Divider(thickness: 1),
-          TransactionsBlock(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Chart(),
+        Divider(thickness: 1),
+        Expanded(
+          child: TransactionsBlock(),
+        ),
+      ],
     );
   }
 }

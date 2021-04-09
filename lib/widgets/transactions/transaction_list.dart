@@ -10,13 +10,10 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (ctx, index) => _TransactionItem(
-          transaction: transactions[index],
-        ),
+    return ListView.builder(
+      itemCount: transactions.length,
+      itemBuilder: (ctx, index) => _TransactionItem(
+        transaction: transactions[index],
       ),
     );
   }
@@ -48,7 +45,7 @@ class _TransactionItem extends StatelessWidget {
                 color: Colors.limeAccent,
               ),
               child: Text(
-                "\$${transaction.amount}",
+                transaction.amount.toStringAsFixed(2),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.purple,
