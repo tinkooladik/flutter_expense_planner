@@ -1,33 +1,53 @@
-import 'package:flutter/foundation.dart';
-
 class Transaction {
   final String id = DateTime.now().toString();
   final String title;
   final double amount;
-  final DateTime date = DateTime.now();
+  DateTime date = DateTime.now();
 
-  Transaction({
-      @required this.title,
-      @required this.amount});
+  Transaction({this.title, this.amount});
+
+  Transaction.forDate(this.title, this.amount, [this.date]);
 }
 
 List<Transaction> generateTransactions() {
-  return [
-    Transaction(
-      title: "Cat's food",
-      amount: 75.91,
+  final now = DateTime.now();
+  var transactions = [
+    Transaction.forDate(
+      "Clothes",
+      93.57,
+      now.subtract(Duration(days: 3)),
     ),
-    Transaction(
-      title: "Clothes",
-      amount: 23.57,
+    Transaction.forDate(
+      "Coffetel",
+      35.72,
+      now.subtract(Duration(days: 5)),
     ),
-    Transaction(
-      title: "Novus",
-      amount: 12.37,
+    Transaction.forDate(
+      "Watch",
+      30.54,
+      now.subtract(Duration(days: 4)),
     ),
-    Transaction(
-      title: "Coffetel",
-      amount: 35.72,
+    Transaction.forDate(
+      "Cat's food",
+      75.91,
+      now.subtract(Duration(days: 2)),
+    ),
+    Transaction.forDate(
+      "Utility bills",
+      80.72,
+      now.subtract(Duration(days: 6)),
+    ),
+    Transaction.forDate(
+      "Groceries",
+      20.45,
+      now.subtract(Duration(days: 1)),
+    ),
+    Transaction.forDate(
+      "Novus",
+      12.37,
+      now.subtract(Duration(days: 4)),
     ),
   ];
+  transactions.sort((a, b) => b.date.compareTo(a.date));
+  return transactions;
 }
