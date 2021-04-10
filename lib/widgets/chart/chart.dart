@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -27,10 +29,13 @@ class Chart extends StatelessWidget {
     });
   }
 
-  double get _totalSpending {
-    return _groupedTransactions.fold(0.0, (sum, item) {
-      return sum + item['amount'];
-    });
+  double get _maxSpending {
+    return _groupedTransactions
+        .map((item) {
+          return item['amount'];
+        })
+        .toList()
+        .reduce((a, b) => max(a, b));
   }
 
   @override
@@ -47,10 +52,13 @@ class Chart extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _groupedTransactions.map((tr) {
-              return ChartBar(
-                tr['day'],
-                tr['amount'],
-                (tr['amount'] as double) / _totalSpending,
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  tr['day'],
+                  tr['amount'],
+                  (tr['amount'] as double) / _maxSpending,
+                ),
               );
             }).toList(),
           ),

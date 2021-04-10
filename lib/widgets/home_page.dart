@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
 
   void _addTransaction(String title, double amount) {
     setState(() {
-      _transactions.add(Transaction(title: title, amount: amount));
+      _transactions.insert(0, Transaction(title: title, amount: amount));
     });
   }
 }
