@@ -19,7 +19,7 @@ class EmptyTransactions extends StatelessWidget {
           SizedBox(height: 50),
           Text(
             'No transactions added yet :(',
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.headline6,
           ),
         ],
       ),

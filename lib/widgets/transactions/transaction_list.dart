@@ -1,20 +1,54 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
+  final Function(String) onDismissed;
+  final Function(Transaction, int) onUndo;
   final List<Transaction> transactions;
 
-  TransactionList({this.transactions});
+  TransactionList({this.transactions, this.onDismissed, this.onUndo});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: transactions.length,
-      itemBuilder: (ctx, index) => _TransactionTile(
-        transaction: transactions[index],
-      ),
+      itemBuilder: (ctx, index) {
+        final item = transactions[index];
+        return Dismissible(
+          key: Key(item.id),
+          onDismissed: (direction) {
+            onDismissed(item.id);
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("${item.title} removed"),
+              action: SnackBarAction(
+                label: 'Undo',
+                textColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  onUndo(item, index);
+                },
+              ),
+            ));
+          },
+          background: Container(
+            alignment: Alignment.centerRight,
+            color: Theme.of(context).errorColor,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          child: _TransactionTile(
+            transaction: transactions[index],
+          ),
+        );
+      },
     );
   }
 }
@@ -40,7 +74,7 @@ class _TransactionTile extends StatelessWidget {
         ),
         title: Text(
           '${transaction.title}',
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
           DateFormat.yMMMMEEEEd().add_jm().format(transaction.date),
@@ -100,7 +134,7 @@ class _TransactionItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     transaction.title,
-                    style: Theme.of(context).textTheme.title.copyWith(
+                    style: Theme.of(context).textTheme.headline6.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                         ),

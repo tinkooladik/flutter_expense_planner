@@ -47,6 +47,8 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TransactionList(
                     transactions: _transactions,
+                    onDismissed: _removeTransaction,
+                    onUndo: _undoRemoval,
                   ),
                 ),
               ],
@@ -71,6 +73,20 @@ class _HomePageState extends State<HomePage> {
   void _addTransaction(String title, double amount, DateTime date) {
     setState(() {
       _transactions.insert(0, Transaction(title, amount, date));
+    });
+  }
+
+  void _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((item) {
+        return item.id == id;
+      });
+    });
+  }
+
+  void _undoRemoval(Transaction transaction, int index) {
+    setState(() {
+      _transactions.insert(index, transaction);
     });
   }
 }
