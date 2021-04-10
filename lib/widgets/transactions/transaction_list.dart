@@ -35,7 +35,7 @@ class TransactionList extends StatelessWidget {
           },
           background: Container(
             alignment: Alignment.centerRight,
-            color: Colors.red,
+            color: Theme.of(context).errorColor,
             child: Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Icon(
