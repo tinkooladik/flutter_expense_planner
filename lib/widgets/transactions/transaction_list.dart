@@ -21,7 +21,7 @@ class TransactionList extends StatelessWidget {
           key: Key(item.id),
           onDismissed: (direction) {
             onDismissed(item.id);
-
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text("${item.title} removed"),
               action: SnackBarAction(
@@ -33,7 +33,17 @@ class TransactionList extends StatelessWidget {
               ),
             ));
           },
-          background: Container(color: Colors.red),
+          background: Container(
+            alignment: Alignment.centerRight,
+            color: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ),
+          ),
           child: _TransactionTile(
             transaction: transactions[index],
           ),
