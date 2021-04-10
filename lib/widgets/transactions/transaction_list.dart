@@ -6,9 +6,10 @@ import '../../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final Function(String) onDismissed;
+  final Function(Transaction, int) onUndo;
   final List<Transaction> transactions;
 
-  TransactionList({this.transactions, this.onDismissed});
+  TransactionList({this.transactions, this.onDismissed, this.onUndo});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,17 @@ class TransactionList extends StatelessWidget {
           key: Key(item.id),
           onDismissed: (direction) {
             onDismissed(item.id);
+
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("${item.title} removed"),
+              action: SnackBarAction(
+                label: 'Undo',
+                textColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  onUndo(item, index);
+                },
+              ),
+            ));
           },
           background: Container(color: Colors.red),
           child: _TransactionTile(
@@ -52,7 +64,7 @@ class _TransactionTile extends StatelessWidget {
         ),
         title: Text(
           '${transaction.title}',
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
           DateFormat.yMMMMEEEEd().add_jm().format(transaction.date),
@@ -112,10 +124,10 @@ class _TransactionItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     transaction.title,
-                    style: Theme.of(context).textTheme.title.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 4),
