@@ -40,7 +40,6 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_groupedTransactions.toString());
     return Container(
       width: double.infinity,
       child: Card(
