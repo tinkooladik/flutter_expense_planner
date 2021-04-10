@@ -1,20 +1,32 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
+  final Function(String) onDismissed;
   final List<Transaction> transactions;
 
-  TransactionList({this.transactions});
+  TransactionList({this.transactions, this.onDismissed});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: transactions.length,
-      itemBuilder: (ctx, index) => _TransactionTile(
-        transaction: transactions[index],
-      ),
+      itemBuilder: (ctx, index) {
+        final item = transactions[index];
+        return Dismissible(
+          key: Key(item.id),
+          onDismissed: (direction) {
+            onDismissed(item.id);
+          },
+          background: Container(color: Colors.red),
+          child: _TransactionTile(
+            transaction: transactions[index],
+          ),
+        );
+      },
     );
   }
 }
@@ -101,9 +113,9 @@ class _TransactionItem extends StatelessWidget {
                   Text(
                     transaction.title,
                     style: Theme.of(context).textTheme.title.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 4),
