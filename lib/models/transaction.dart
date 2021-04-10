@@ -4,45 +4,45 @@ class Transaction {
   final double amount;
   DateTime date = DateTime.now();
 
-  Transaction({this.title, this.amount});
+  Transaction(this.title, this.amount, [this.date]);
 
-  Transaction.forDate(this.title, this.amount, [this.date]);
+  Transaction.today({this.title, this.amount});
 }
 
 List<Transaction> generateTransactions() {
   final now = DateTime.now();
   var transactions = [
-    Transaction.forDate(
+    Transaction(
       "Clothes",
       93.57,
       now.subtract(Duration(days: 3)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Coffetel",
       35.72,
       now.subtract(Duration(days: 5)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Watch",
       30.54,
       now.subtract(Duration(days: 4)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Cat's food",
       75.91,
       now.subtract(Duration(days: 2)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Utility bills",
       80.72,
       now.subtract(Duration(days: 6)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Groceries",
       20.45,
       now.subtract(Duration(days: 1)),
     ),
-    Transaction.forDate(
+    Transaction(
       "Novus",
       12.37,
       now.subtract(Duration(days: 4)),

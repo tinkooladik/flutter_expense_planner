@@ -68,9 +68,9 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  void _addTransaction(String title, double amount) {
+  void _addTransaction(String title, double amount, DateTime date) {
     setState(() {
-      _transactions.insert(0, Transaction(title: title, amount: amount));
+      _transactions.insert(0, Transaction(title, amount, date));
     });
   }
 }
